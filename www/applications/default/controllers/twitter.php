@@ -78,16 +78,16 @@ class Twitter_Controller extends ZP_Controller {
 	}
 	
 	public function get($query = "#manuel") {
-		$parameters = array('q' => '#manuel pic.twitter.com', 'geocode' => '23.28171917560003,-108.45703125,100mi');
+		$parameters = array('q' => '#manuel pic.twitter.com', 'geocode' => '23.28171917560003,-108.45703125,80mi');
 		$danger     = $this->Twitter_Api->get('search/tweets', $parameters);
 		
-		$parameters = array('q' => '#manuel pic.twitter.com', 'geocode' => '25.79309078253729,-108.99261474609375,100mi');
+		$parameters = array('q' => '#manuel pic.twitter.com', 'geocode' => '25.79309078253729,-108.99261474609375,80mi');
 		$mochis     = $this->Twitter_Api->get('search/tweets', $parameters);
 		
-		$parameters = array('q' => '#manuel pic.twitter.com', 'geocode' => '24.802318262910543,-107.39479064941406,100mi');
+		$parameters = array('q' => '#manuel pic.twitter.com', 'geocode' => '24.802318262910543,-107.39479064941406,80mi');
 		$culiacan   = $this->Twitter_Api->get('search/tweets', $parameters);
 		
-		$parameters = array('q' => '#manuel pic.twitter.com', 'geocode' => '24.141740980504334,-110.31166076660156,100mi');
+		$parameters = array('q' => '#manuel pic.twitter.com', 'geocode' => '24.141740980504334,-110.31166076660156,80mi');
 		$lapaz      = $this->Twitter_Api->get('search/tweets', $parameters);
 		
 		

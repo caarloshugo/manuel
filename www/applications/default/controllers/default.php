@@ -22,7 +22,7 @@ class Default_Controller extends ZP_Controller {
 		$this->render("content", $vars);
 	}
 	
-	public function index() {
+	public function index22() {
 		$tweets = $this->Twitter_Controller->get();
 		
 		$vars["tweets"] = $tweets;
