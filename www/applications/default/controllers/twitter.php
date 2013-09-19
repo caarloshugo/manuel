@@ -78,67 +78,29 @@ class Twitter_Controller extends ZP_Controller {
 	}
 	
 	public function get($query = "#manuel") {
-		$parameters = array('q' => '#manuel pic.twitter.com', 'geocode' => '23.28171917560003,-108.45703125,80mi');
-		$danger     = $this->Twitter_Api->get('search/tweets', $parameters);
+		$points[] = array ("alias" => "danger",   "name" => "Zona de alerta", "lat" => "25.175116531621764", "lon" => "-108.19335937499999", "geocode" => "25.175116531621764,-108.19335937499999,80mi");
+		$points[] = array ("alias" => "mochis",   "name" => "Los Mochis",     "lat" => "25.79309078253729",  "lon" => "-108.99261474609375", "geocode" => "25.79309078253729,-108.99261474609375,80mi");
+		$points[] = array ("alias" => "culiacan", "name" => "Culiacan",		  "lat" => "24.802318262910543", "lon" => "-107.39479064941406", "geocode" => "24.802318262910543,-107.39479064941406,80mi");
+		$points[] = array ("alias" => "lapaz",    "name" => "La Paz", 		  "lat" => "24.141740980504334", "lon" => "-110.31166076660156", "geocode" => "24.141740980504334,-110.31166076660156,80mi");
 		
-		$parameters = array('q' => '#manuel pic.twitter.com', 'geocode' => '25.79309078253729,-108.99261474609375,80mi');
-		$mochis     = $this->Twitter_Api->get('search/tweets', $parameters);
-		
-		$parameters = array('q' => '#manuel pic.twitter.com', 'geocode' => '24.802318262910543,-107.39479064941406,80mi');
-		$culiacan   = $this->Twitter_Api->get('search/tweets', $parameters);
-		
-		$parameters = array('q' => '#manuel pic.twitter.com', 'geocode' => '24.141740980504334,-110.31166076660156,80mi');
-		$lapaz      = $this->Twitter_Api->get('search/tweets', $parameters);
-		
-		
-		foreach($danger->statuses as $status) {
-			$parameters = array('id' => $status->id_str);
-			$tweet	    = $this->Twitter_Api->get('statuses/show', $parameters);
-		
-			$data["danger"][] = array(
-				"id"    => $tweet->id_str,
-				"text"  => $tweet->text,
-				"name"  => $tweet->user->name,
-				"image" => $tweet->entities->media[0]->media_url
-			);
-		}
-		
-		foreach($mochis->statuses as $status) {
-			$parameters = array('id' => $status->id_str);
-			$tweet	    = $this->Twitter_Api->get('statuses/show', $parameters);
+		foreach($points as $key => $point) {
+			$parameters = array('q' => '#manuel pic.twitter.com', 'geocode' => $point["geocode"]);
+			$results    = $this->Twitter_Api->get('search/tweets', $parameters);
 			
-			$data["mochis"][] = array(
-				"id"    => $tweet->id_str,
-				"text"  => $tweet->text,
-				"name"  => $tweet->user->name,
-				"image" => $tweet->entities->media[0]->media_url
-			);
-		}
-		
-		foreach($culiacan->statuses as $status) {
-			$parameters = array('id' => $status->id_str);
-			$tweet	    = $this->Twitter_Api->get('statuses/show', $parameters);
+			$data[$key]["point"] = $point;
 			
-			$data["culiacan"][] = array(
-				"id"    => $tweet->id_str,
-				"text"  => $tweet->text,
-				"name"  => $tweet->user->name,
-				"image" => $tweet->entities->media[0]->media_url
-			);
-		}
-		
-		foreach($lapaz->statuses as $status) {
-			$parameters = array('id' => $status->id_str);
-			$tweet	    = $this->Twitter_Api->get('statuses/show', $parameters);
+			foreach($results->statuses as $status) {
+				$parameters = array('id' => $status->id_str);
+				$tweet	    = $this->Twitter_Api->get('statuses/show', $parameters);
 			
-			$data["lapaz"][] = array(
-				"id"    => $tweet->id_str,
-				"text"  => $tweet->text,
-				"name"  => $tweet->user->name,
-				"image" => $tweet->entities->media[0]->media_url
-			);
+				$data[$key]["tweets"][] = array(
+					"id"    => $tweet->id_str,
+					"text"  => $tweet->text,
+					"name"  => $tweet->user->name,
+					"image" => $tweet->entities->media[0]->media_url
+				);
+			}
 		}
-		
 		
 		return $data;
 	}

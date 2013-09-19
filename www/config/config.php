@@ -9,7 +9,7 @@ if(!defined("_access")) {
 /**
  * Website
  */
-$ZP["webURL"] 	    = "http://107.22.236.217/manuel";
+$ZP["webURL"] 	    = "http://127.0.0.1/manuel";
 $ZP["webName"] 	    = "Manuel";
 $ZP["webTheme"]     = "default";
 $ZP["webSituation"] = "Active";
@@ -20,7 +20,7 @@ $ZP["benchMark"]    = FALSE;
  * Server
  */
 $ZP["production"] = TRUE;
-$ZP["domain"] 	  = TRUE;
+$ZP["domain"] 	  = FALSE;
 $ZP["modRewrite"] = TRUE;
 $ZP["autoRender"] = TRUE;
 

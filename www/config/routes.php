@@ -8,7 +8,7 @@ if(!defined("_access")) {
 
 $routes = array(
 	0 => array(
-		"pattern"	  => "/^manuel/",
+		"pattern"	  => "/^geojson.js/",
 		"application" => "default",
 		"controller"  => "default",
 		"method"	  => "index",

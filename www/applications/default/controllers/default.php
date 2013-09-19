@@ -22,11 +22,24 @@ class Default_Controller extends ZP_Controller {
 		$this->render("content", $vars);
 	}
 	
-	public function index22() {
+	public function index() {
 		$tweets = $this->Twitter_Controller->get();
 		
-		$vars["tweets"] = $tweets;
-		$vars["view"]   = $this->view("home_backdoor", true);
-		$this->render("content", $vars);
+		echo "var geoJson = [";
+			foreach($tweets as $key => $value) {
+				echo "{";
+					echo "type: 'Feature',";
+					echo '"geometry": { "type": "Point", "coordinates": [' . $value["point"]["lon"] . ', '. $value["point"]["lat"] . ']},';
+					echo '"properties": {';
+						echo "'title': '" . $value["point"]["name"] . "',";
+						echo "'images': [";
+							foreach($value["tweets"] as $tweet) {
+								echo "['" . $tweet["image"] . "','" . preg_replace(array("(\r\n)", "(\n\r)", "(\n)", "(\r)"), "", utf8_decode($tweet["text"])) . "','" . $tweet["id"]. "'],";
+							}
+						echo "]";
+					echo "}";
+				echo "},";
+			}
+		echo "];";
 	}
 }

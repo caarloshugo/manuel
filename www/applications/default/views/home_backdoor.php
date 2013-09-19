@@ -48,62 +48,22 @@ body { margin:0; padding:0; }
 var map = L.mapbox.map('map', 'caarloshugo.map-yxf4whgl');
 
 var geoJson = [
-	{
-		type: 'Feature',
-		"geometry": { "type": "Point", "coordinates": [-108.19335937499999, 25.175116531621764]},
-		"properties": {
-			'title': 'Zona de alerta',
+	<?php foreach($tweets as $key => $value) { ?>
+		{
+			type: 'Feature',
+			"geometry": { "type": "Point", "coordinates": [<?php echo $value["point"]["lon"];?>, <?php echo $value["point"]["lat"];?>]},
+			"properties": {
+				'title': '<?php echo $value["point"]["name"];?>',
 
-			// Store the image url and caption in an array
-			'images': [
-				<?php foreach($tweets["danger"] as $tweet) { ?>
-					['<?php echo $tweet["image"];?>','<?php echo $tweet["text"];?>','<?php echo $tweet["id"];?>'],
-				<?php } ?>
-			]
-		}
-	},
-	{
-		type: 'Feature',
-		"geometry": { "type": "Point", "coordinates": [-108.99261474609375, 25.79309078253729]},
-		"properties": {
-			'title': 'Los Mochis',
-
-			// Store the image url and caption in an array
-			'images': [
-				<?php foreach($tweets["mochis"] as $tweet) { ?>
-					['<?php echo $tweet["image"];?>','<?php echo $tweet["text"];?>','<?php echo $tweet["id"];?>'],
-				<?php } ?>
-			]
-		}
-	},
-	{
-		type: 'Feature',
-		"geometry": { "type": "Point", "coordinates": [-107.39479064941406, 24.802318262910543]},
-		"properties": {
-			'title': 'Culiacan',
-
-			// Store the image url and caption in an array
-			'images': [
-				<?php foreach($tweets["culiacan"] as $tweet) { ?>
-					['<?php echo $tweet["image"];?>','<?php echo $tweet["text"];?>','<?php echo $tweet["id"];?>'],
-				<?php } ?>
-			]
-		}
-	},
-	{
-		type: 'Feature',
-		"geometry": { "type": "Point", "coordinates": [-110.31166076660156, 24.141740980504334]},
-		"properties": {
-			'title': 'La Paz',
-
-			// Store the image url and caption in an array
-			'images': [
-				<?php foreach($tweets["lapaz"] as $tweet) { ?>
-					['<?php echo $tweet["image"];?>','<?php echo $tweet["text"];?>','<?php echo $tweet["id"];?>'],
-				<?php } ?>
-			]
-		}
-	}
+				// Store the image url and caption in an array
+				'images': [
+					<?php foreach($value["tweets"] as $tweet) { ?>
+						['<?php echo $tweet["image"];?>','<?php echo preg_replace(array("(\r\n)", "(\n\r)", "(\n)", "(\r)"), "", $tweet["text"]);?>','<?php echo $tweet["id"];?>'],
+					<?php } ?>
+				]
+			}
+		},
+	<?php } ?>
 ];
 
 // Add custom popup html to each marker
@@ -116,11 +76,11 @@ map.markerLayer.on('layeradd', function(e) {
     for(var i = 0; i < images.length; i++) {
         var img = images[i];
 
-        slideshowContent += '<a href="http://twitter.com/twitter/status/' + img[2]  + '" title="' + img[1] + '">' +
-							  '<div class="image' + (i === 0 ? ' active' : '') + '">' +
-                              '<img src="' + img[0] + '" />' +
+        slideshowContent += '<div class="image' + (i === 0 ? ' active' : '') + '">' +
+                              '<a target="_blank" href="http://twitter.com/twitter/status/' + img[2]  + '">' +
+                              '<img width=600 height=300 src="' + img[0] + '" />' +
                               '<div class="caption">' + img[1] + '</div>' +
-                            '</div></a>';
+                            '</a></div>';
     }
 
     // Create custom popup content
