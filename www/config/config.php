@@ -87,6 +87,8 @@ define("CONSUMER_SECRET", "SKiuJL7N7F7qaWTeGLAJLhxbF0q6wVqZtQhBes");
 define("OAUTH_CALLBACK", "http://retos.localhost.org/callback/twitter/");
 
 /*Github*/
+define("GITHUB_ID", '1b945b27c60a788f7037');
+define("GITHUB_SECRET", '600e082b3eba0d030af7d86c684a4eee048b49b0');
 define("GITHUB_CALLBACK_URL", 'http://retos.localhost.org/callback/github/');
 
 if(!$ZP["modRewrite"]) {

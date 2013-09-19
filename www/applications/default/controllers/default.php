@@ -17,12 +17,12 @@ class Default_Controller extends ZP_Controller {
 		$this->Templates->theme();
 	}
 	
-	public function index() {
+	public function index2() {
 		$vars["view"]   = $this->view("home", true);
 		$this->render("content", $vars);
 	}
 	
-	public function backdoor() {
+	public function index() {
 		$tweets = $this->Twitter_Controller->get();
 		
 		$vars["tweets"] = $tweets;

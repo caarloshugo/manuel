@@ -57,7 +57,7 @@ var geoJson = [
 			// Store the image url and caption in an array
 			'images': [
 				<?php foreach($tweets["danger"] as $tweet) { ?>
-					['<?php echo $tweet["image"];?>','<?php echo $tweet["text"];?>'],
+					['<?php echo $tweet["image"];?>','<?php echo $tweet["text"];?>','<?php echo $tweet["id"];?>'],
 				<?php } ?>
 			]
 		}
@@ -71,7 +71,7 @@ var geoJson = [
 			// Store the image url and caption in an array
 			'images': [
 				<?php foreach($tweets["mochis"] as $tweet) { ?>
-					['<?php echo $tweet["image"];?>','<?php echo $tweet["text"];?>'],
+					['<?php echo $tweet["image"];?>','<?php echo $tweet["text"];?>','<?php echo $tweet["id"];?>'],
 				<?php } ?>
 			]
 		}
@@ -85,7 +85,7 @@ var geoJson = [
 			// Store the image url and caption in an array
 			'images': [
 				<?php foreach($tweets["culiacan"] as $tweet) { ?>
-					['<?php echo $tweet["image"];?>','<?php echo $tweet["text"];?>'],
+					['<?php echo $tweet["image"];?>','<?php echo $tweet["text"];?>','<?php echo $tweet["id"];?>'],
 				<?php } ?>
 			]
 		}
@@ -99,7 +99,7 @@ var geoJson = [
 			// Store the image url and caption in an array
 			'images': [
 				<?php foreach($tweets["lapaz"] as $tweet) { ?>
-					['<?php echo $tweet["image"];?>','<?php echo $tweet["text"];?>'],
+					['<?php echo $tweet["image"];?>','<?php echo $tweet["text"];?>','<?php echo $tweet["id"];?>'],
 				<?php } ?>
 			]
 		}
@@ -116,10 +116,11 @@ map.markerLayer.on('layeradd', function(e) {
     for(var i = 0; i < images.length; i++) {
         var img = images[i];
 
-        slideshowContent += '<div class="image' + (i === 0 ? ' active' : '') + '">' +
+        slideshowContent += '<a href="http://twitter.com/twitter/status/' + img[2]  + '" title="' + img[1] + '">' +
+							  '<div class="image' + (i === 0 ? ' active' : '') + '">' +
                               '<img src="' + img[0] + '" />' +
                               '<div class="caption">' + img[1] + '</div>' +
-                            '</div>';
+                            '</div></a>';
     }
 
     // Create custom popup content

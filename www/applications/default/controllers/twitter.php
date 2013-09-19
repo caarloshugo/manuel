@@ -94,8 +94,9 @@ class Twitter_Controller extends ZP_Controller {
 		foreach($danger->statuses as $status) {
 			$parameters = array('id' => $status->id_str);
 			$tweet	    = $this->Twitter_Api->get('statuses/show', $parameters);
-			
+		
 			$data["danger"][] = array(
+				"id"    => $tweet->id_str,
 				"text"  => $tweet->text,
 				"name"  => $tweet->user->name,
 				"image" => $tweet->entities->media[0]->media_url
@@ -107,6 +108,7 @@ class Twitter_Controller extends ZP_Controller {
 			$tweet	    = $this->Twitter_Api->get('statuses/show', $parameters);
 			
 			$data["mochis"][] = array(
+				"id"    => $tweet->id_str,
 				"text"  => $tweet->text,
 				"name"  => $tweet->user->name,
 				"image" => $tweet->entities->media[0]->media_url
@@ -118,6 +120,7 @@ class Twitter_Controller extends ZP_Controller {
 			$tweet	    = $this->Twitter_Api->get('statuses/show', $parameters);
 			
 			$data["culiacan"][] = array(
+				"id"    => $tweet->id_str,
 				"text"  => $tweet->text,
 				"name"  => $tweet->user->name,
 				"image" => $tweet->entities->media[0]->media_url
@@ -129,6 +132,7 @@ class Twitter_Controller extends ZP_Controller {
 			$tweet	    = $this->Twitter_Api->get('statuses/show', $parameters);
 			
 			$data["lapaz"][] = array(
+				"id"    => $tweet->id_str,
 				"text"  => $tweet->text,
 				"name"  => $tweet->user->name,
 				"image" => $tweet->entities->media[0]->media_url
